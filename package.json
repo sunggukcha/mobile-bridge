@@ -1,0 +1,54 @@
+{
+  "name": "mobile-codex-bridge",
+  "version": "0.2.0",
+  "description": "A self-hosted Discord and Slack bridge for local coding-agent CLIs.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunggukcha/mobile-bridge.git"
+  },
+  "homepage": "https://github.com/sunggukcha/mobile-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/sunggukcha/mobile-bridge/issues"
+  },
+  "keywords": [
+    "codex",
+    "discord",
+    "slack",
+    "self-hosted",
+    "coding-agent"
+  ],
+  "type": "module",
+  "scripts": {
+    "check:node": "node scripts/check-node-version.mjs",
+    "start": "npm run check:node && node bridge-service.mjs",
+    "start:supervisor": "npm run check:node && node bridge-supervisor.mjs",
+    "auth:codex": "node scripts/provider-cli.mjs codex-auth",
+    "auth:claude": "node scripts/provider-cli.mjs claude-auth",
+    "auth:claude:status": "node scripts/provider-cli.mjs claude-status",
+    "auth:gemini": "node scripts/provider-cli.mjs gemini-auth",
+    "worker:versions": "node scripts/provider-cli.mjs versions",
+    "v3:reception": "npm run check:node && node v3/reception.mjs",
+    "v3:workbench": "npm run check:node && node v3/workbench.mjs",
+    "v3:supervisor": "npm run check:node && node v3/supervisor.mjs",
+    "v3:watchdog": "npm run check:node && node v3/watchdog.mjs",
+    "v3:submit": "npm run check:node && node v3/submit.mjs",
+    "v3:doctor": "npm run check:node && node v3/doctor.mjs",
+    "v3:health": "npm run check:node && node v3/health.mjs",
+    "v3:canary": "npm run check:node && node v3/canary.mjs",
+    "test:v3": "node --test --test-reporter=spec test/v3-*.test.mjs",
+    "check": "node scripts/check-syntax.mjs",
+    "test": "npm run check && node --test --test-concurrency=\"${BRIDGE_TEST_CONCURRENCY:-4}\" --test-reporter=dot test/*.test.mjs",
+    "release:check": "npm test && npm pack --dry-run"
+  },
+  "engines": {
+    "node": ">=22.13.0 <23 || >=23.4.0"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "mathjax": "^4.1.3",
+    "nanum-gothic-coding": "4.0.0",
+    "ws": "^8.21.1"
+  }
+}
